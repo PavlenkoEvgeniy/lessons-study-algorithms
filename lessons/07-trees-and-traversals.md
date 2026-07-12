@@ -328,12 +328,12 @@ function postOrder(TreeNode $node): void
 function findFile(TreeNode $folder, string $filename): ?string
 {
     // Проверяем текущий узел
-    if ($node->value === $filename) {
+    if ($folder->value === $filename) {
         return $filename;
     }
     
     // Ищем в детях (DFS)
-    foreach ($node->children as $child) {
+    foreach ($folder->children as $child) {
         $result = findFile($child, $filename);
         if ($result !== null) {
             return $result;

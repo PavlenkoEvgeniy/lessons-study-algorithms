@@ -154,7 +154,10 @@ class Dijkstra
             }
         }
         
-        return $distances;
+        return [
+            'distances' => $distances,
+            'previous' => $previous
+        ];
     }
     
     /**
@@ -162,7 +165,9 @@ class Dijkstra
      */
     public function shortestPath(string $from, string $to): ?array
     {
-        $distances = $this->shortestPaths($from);
+        $result = $this->shortestPaths($from);
+        $distances = $result['distances'];
+        $previous = $result['previous'];
         
         if ($distances[$to] === PHP_INT_MAX) {
             return null; // Путь не существует
@@ -259,7 +264,8 @@ $dijkstra->addEdge("Санкт-Петербург", "Хельсинки", 400);
 
 echo "=== Кратчайшие пути от Москвы ===\n\n";
 
-$paths = $dijkstra->shortestPaths("Москва");
+$result = $dijkstra->shortestPaths("Москва");
+$paths = $result['distances'];
 
 foreach ($paths as $city => $distance) {
     if ($distance === PHP_INT_MAX) {
